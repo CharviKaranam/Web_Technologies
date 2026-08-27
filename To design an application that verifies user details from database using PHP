@@ -1,0 +1,93 @@
+db.php 
+<html> 
+<body> 
+<?php 
+$severname="localhost"; 
+$username="root"; 
+$password="TIGER"; 
+$conn=new mysqli($severname,$username,$password); 
+if($conn->connect_error) 
+{ 
+die("connection failed".$conn->connect_error); 
+} 
+echo "Connected successfully <br>"; 
+//Create database 
+$sql = "CREATE DATABASE reg"; 
+if(mysqli_query($conn,$sql)) 
+echo "Database created successfully<br>"; 
+else 
+echo "error"; 
+$servername="localhost"; 
+$dbname="reg"; 
+$conn = mysqli_connect($servername, $username, $password, $dbname); 
+// Check connection 
+if (!$conn) 
+{ 
+die("Connection failed: " . mysqli_connect_error()); 
+} 
+echo "Connected successfully <br>"; 
+// sql to create table 
+$sql = "CREATE TABLE Guests ( 
+name VARCHAR(30) NOT NULL, 
+pwd VARCHAR(30) NOT NULL)"; 
+if (mysqli_query($conn, $sql)) 
+{ 
+echo "Table MyGuests created successfully<br>"; 
+} 
+else { 
+echo "Error creating table: " . mysqli_error($conn); 
+} 
+$sql = "INSERT INTO Guests (name, pwd) VALUES ('cse', '5')"; 
+if (mysqli_query($conn, $sql)) { 
+echo "New record created successfully"; 
+} 
+else 
+{ 
+echo "Error: " . $sql . "<br>" . mysqli_error($conn); 
+} 
+mysqli_close($conn); 
+?> 
+</body> 
+</html> 
+<html> 
+<head> <title> Login Page </title> </head> 
+<body> 
+<center> <h1> Login Page </h1> 
+<form action="loginform.php" method="post"> 
+<table> 
+<tr> <td> <label> Name: </label> </td> 
+<td> <input type="text" name="uname" /> </td> 
+</tr> 
+<tr> <td> <label> Password: </label> </td> 
+<td> <input type="password" name="upwd" /> </td> 
+</tr> 
+<tr> <td> <input type="submit" value="submit" /> </td> 
+<td> <input type="reset" value="reset" /> </td> 
+</tr> 
+</table> 
+</form> 
+</center> 
+</body> 
+</html> 
+
+loginform.php 
+<html> 
+<head> <title> Registration page </title> </head> 
+<body> 
+<?php 
+$name=$_POST["uname"]; 
+$pwd=$_POST["upwd"]; 
+$conn=mysql_connect("localhost","root","TIGER") or die("mysql_error()"); 
+mysql_select_db("reg") or die("mysql_error()"); 
+$query=mysql_query("SELECT * from guests where name='$name'"); 
+while($row=mysql_fetch_array($query)) 
+{ 
+$duser=$row['name']; 
+$dpwd=$row['pwd']; 
+} 
+if($pwd==$dpwd && $name==$duser) 
+echo "welcome $name branch"; 
+else 
+echo "invalid user"; 
+?> 
+</body> 
