@@ -1,0 +1,41 @@
+form.html 
+<html> 
+<head> <title> scientific calculator </title> </head> 
+<body bgcolor="bisque"> <br> 
+<form name='f1' action='add.php' method='post'> 
+1st Number<input type='text' name='t1'><br> 
+2nd Number<input type='text' name='t2'><br> 
+<input type='submit' name='add' value='add'> 
+<input type='submit' name='sub' value='sub'> 
+<input type='submit' name='mul' value='mul'> 
+<input type='submit' name='div' value='div'> 
+</form> 
+</body> 
+</html> 
+ 
+add.php 
+ 
+<?php 
+$a = $_POST['t1']; 
+$b = $_POST['t2']; 
+if (isset($_POST['add'])) 
+{ 
+$c = $a + $b; 
+print $a . "+" . $b . "=" . $c; 
+} 
+if (isset($_POST['sub'])) 
+{ 
+$c = $a - $b; 
+print $a . "-" . $b . "=" . $c; 
+} 
+if (isset($_POST['mul'])) 
+{ 
+$c = $a * $b; 
+print $a . "*" . $b . "=" . $c; 
+} 
+if (isset($_POST['div'])) 
+{ 
+$c = $a / $b; 
+print $a . "/" . $b . "=" . $c; 
+} 
+?>
